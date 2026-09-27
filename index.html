@@ -190,7 +190,6 @@
     .btn-vocab-opt.correct { background: var(--success-bg) !important; border-color: var(--success-border) !important; color: #15803D !important; }
     .btn-vocab-opt.wrong { background: var(--danger-bg) !important; border-color: var(--danger-border) !important; color: #B91C1C !important; }
 
-    /* Word Tiles & Slots chung cho Sắp xếp */
     .tiles-slots { min-height: 58px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding: 8px; background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 12px; }
     .tiles-bank { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
     
@@ -200,12 +199,23 @@
     .char-tile.bank.used { visibility: hidden; pointer-events: none; }
     .char-tile.slot { background: white; color: #1E293B; border: 2px solid #94A3B8; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-    /* Thẻ từ cho Sắp Xếp Câu (Sentence Scramble) */
     .word-tile { padding: 8px 14px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.15s; user-select: none; display: inline-flex; align-items: center; justify-content: center; }
     .word-tile.bank { background: #3B82F6; color: white; border: 2px solid #2563EB; box-shadow: 0 3px 0 #1D4ED8; }
     .word-tile.bank:active { transform: translateY(2px); box-shadow: none; }
     .word-tile.bank.used { visibility: hidden; pointer-events: none; }
     .word-tile.slot { background: white; color: #0F172A; border: 2px solid #3B82F6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+    /* Hộp câu hỏi dẫn dắt (Context Hint) trong phần Xếp Câu */
+    .prompt-context-box {
+      background: #EFF6FF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .prompt-speaker { font-size: 13.5px; font-weight: 800; color: #1D4ED8; margin-bottom: 4px; }
+    .prompt-text { font-size: 17px; font-weight: 700; color: #1E293B; line-height: 1.5; }
 
     .spelling-box { display: none; text-align: center; padding: 6px 0; }
     .spelling-input { width: 100%; max-width: 320px; font-size: 22px; font-weight: bold; letter-spacing: 2px; text-align: center; padding: 10px; border-radius: 10px; border: 2px solid #94A3B8; outline: none; margin: 12px auto; display: block; }
@@ -340,7 +350,7 @@
     <div class="vocab-grid" id="vocab-container"></div>
   </div>
 
-  <!-- Tab 6: Grammar (Tích hợp thêm nút Thử Thách Xếp Câu) -->
+  <!-- Tab 6: Grammar -->
   <div id="tab-grammar" class="tab-content">
     <div class="grammar-text" id="grammar-container"></div>
     <div class="action-row">
@@ -416,7 +426,7 @@
   </div>
 </div>
 
-<!-- Modal 2: Thử Thách Sắp Xếp Câu Ngữ Pháp (Sentence Scramble) -->
+<!-- Modal 2: Thử Thách Sắp Xếp Câu Ngữ Pháp (Hiển thị rõ câu hỏi tương ứng) -->
 <div id="sentence-scramble-modal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-header">
@@ -429,8 +439,14 @@
       <span id="sq-score" style="font-weight: bold; color: #047857; font-size: 14px;">Đúng: 0 ⭐</span>
     </div>
 
-    <div style="font-size: 14.5px; font-weight: bold; color: #334155; margin-bottom: 8px;" id="sq-speaker-hint">
-      Sắp xếp các từ để hoàn thành câu:
+    <!-- Hộp hiển thị Câu Hỏi / Câu Dẫn Dắt Tương Ứng -->
+    <div class="prompt-context-box" id="sq-context-box">
+      <div class="prompt-speaker" id="sq-context-speaker">Parent hỏi:</div>
+      <div class="prompt-text" id="sq-context-text">"Where's the park?"</div>
+    </div>
+
+    <div style="font-size: 14px; font-weight: bold; color: #334155; margin-bottom: 8px;" id="sq-task-title">
+      👉 Bé hãy sắp xếp các từ để trả lời:
     </div>
 
     <!-- Hàng các từ đã ghép -->
@@ -440,8 +456,7 @@
     <div class="tiles-bank" id="sentence-bank"></div>
 
     <div style="display: flex; justify-content: center; gap: 10px; margin-top: 12px;">
-      <button class="btn btn-primary" onclick="speakCurrentSentenceTarget()">🔊 Nghe Câu Mẫu</button>
-      <button class="btn btn-success" onclick="checkSentenceScrambleAnswer()">Kiểm Tra Câu Này</button>
+      <button class="btn btn-success" onclick="checkSentenceScrambleAnswer()">Kiểm Tra Kết Quả</button>
       <button class="btn btn-secondary" onclick="resetSentenceCurrent()">Làm Lại</button>
     </div>
 
@@ -475,7 +490,7 @@
   let scrambleBankChars = [];
   let scrambleChosenChars = [];
 
-  // Sentence Scramble State
+  // Sentence Scramble State (Ngữ pháp xếp câu hỏi - đáp)
   let sqItems = [];
   let sqCurrentIndex = 0;
   let sqCorrectCount = 0;
@@ -553,21 +568,23 @@
     return lower + "s";
   }
 
-  const defaultText = `Q: Who's Stella's uncle?
-A: Uncle Fred.
-Q: Who's Suzy's aunt?
-A: Aunt May.
-Q: Has Stella got a brother?
-A: Yes, she has. His name is Simon.
-Q: Who are Mrs Star's daughters?
-A: Stella and Suzy.`;
+  const defaultText = `Parent: Where's the park?
+Child: It's opposite the swimming pool!
+Parent: Where's the library?
+Child: It's between the bank and the bus station!
+Parent: Where do you go to see a film?
+Child: I go to the cinema to see a film!
+Parent: Where do we go to buy food?
+Child: We go to the supermarket or the market!`;
 
   const defaultVocabList = [
-    { word: "uncle", meaning: "chú / bác" },
-    { word: "aunt", meaning: "cô / dì" },
-    { word: "brother", meaning: "anh / em trai" },
-    { word: "daughters", meaning: "con gái" },
-    { word: "family", meaning: "gia đình" }
+    { word: "bank", meaning: "ngân hàng" },
+    { word: "bus station", meaning: "bến xe buýt" },
+    { word: "cinema", meaning: "rạp chiếu phim" },
+    { word: "hospital", meaning: "bệnh viện" },
+    { word: "swimming pool", meaning: "hồ bơi" },
+    { word: "opposite", meaning: "đối diện" },
+    { word: "between", meaning: "ở giữa" }
   ];
 
   function getStoredUnits() {
@@ -575,7 +592,7 @@ A: Stella and Suzy.`;
       const stored = JSON.parse(localStorage.getItem('english_app_units'));
       if (Array.isArray(stored) && stored.length > 0) return stored;
     } catch(e) {}
-    return [{ id: 1, title: "Unit 2: Family", text: defaultText, customVocab: defaultVocabList }];
+    return [{ id: 1, title: "UNIT 4: IN THE CITY", text: defaultText, customVocab: defaultVocabList }];
   }
 
   let units = getStoredUnits();
@@ -699,7 +716,7 @@ A: Stella and Suzy.`;
     units.push({ 
       id: newId, 
       title: title.trim(), 
-      text: "Q: Who's Stella's uncle?\nA: Uncle Fred.", 
+      text: "Parent: Where's the park?\nChild: It's opposite the swimming pool!", 
       customVocab: [] 
     });
     localStorage.setItem('english_app_units', JSON.stringify(units));
@@ -798,7 +815,6 @@ A: Stella and Suzy.`;
     document.getElementById('tab-' + tabId).classList.add('active');
   }
 
-  // TÁCH DÒNG RÕ RÀNG (KHÔNG DỒN CÂU)
   function renderLesson(unit) {
     const text = unit.text;
     const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '');
@@ -1060,7 +1076,7 @@ A: Stella and Suzy.`;
       const originalText = item.body.trim();
 
       const tokens = originalText.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "is", "at", "with", "me", "do", "you", "does", "who", "has"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "is", "at", "with", "me", "do", "you", "does", "who", "where"];
       const keyWords = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 3);
 
       let distractorSentence = originalText;
@@ -1196,7 +1212,7 @@ A: Stella and Suzy.`;
       }
 
       const tokens = dialogBody.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "do", "you", "who", "has"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "do", "you", "who", "where"];
       const candidates = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 3);
 
       if (candidates.length === 0) return;
@@ -1391,7 +1407,7 @@ A: Stella and Suzy.`;
       vocabItems = unit.customVocab;
     } else {
       const words = unit.text.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ['the', 'this', 'that', 'with', 'from', 'what', 'your', 'and', 'she', 'his', 'can', 'you', 'put', 'are', 'who', 'has', 'got'];
+      const stopWords = ['the', 'this', 'that', 'with', 'from', 'what', 'your', 'and', 'she', 'his', 'can', 'you', 'put', 'are', 'who', 'where', 'parent', 'child'];
       const cleanWords = [...new Set(words.map(w => w.toLowerCase()))]
         .filter(w => !stopWords.includes(w) && w.length >= 3)
         .slice(0, 10);
@@ -1719,7 +1735,6 @@ A: Stella and Suzy.`;
     }
   }
 
-  // Sắp xếp chữ cái (Vocab Scramble)
   function initScrambleGame(word) {
     scrambleOriginalWord = word.trim();
     let chars = scrambleOriginalWord.split('').filter(c => c !== ' ');
@@ -1820,19 +1835,33 @@ A: Stella and Suzy.`;
     }
   }
 
-  // --- MODAL 2: THỬ THÁCH SẮP XẾP CÂU (SENTENCE SCRAMBLE CHO TAB GRAMMAR) ---
+  // --- MODAL 2: THỬ THÁCH SẮP XẾP CÂU (HIỂN THỊ CÂU HỎI TƯƠNG ỨNG) ---
   function openSentenceScrambleModal() {
-    // Lấy các câu trong bài đọc có ít nhất 3 từ
-    const validSentences = currentDialogueList.filter(item => {
-      const words = item.body.trim().split(/\s+/);
-      return words.length >= 3;
-    });
+    let questionAnswerPairs = [];
 
-    if (validSentences.length === 0) {
+    // Tìm các cặp (Câu trước -> Câu sau cần xếp)
+    for (let i = 0; i < currentDialogueList.length; i++) {
+      const current = currentDialogueList[i];
+      const words = current.body.trim().split(/\s+/);
+      
+      if (words.length >= 3) {
+        let prevPrompt = null;
+        if (i > 0) {
+          prevPrompt = currentDialogueList[i - 1];
+        }
+
+        questionAnswerPairs.push({
+          targetItem: current,
+          prevPrompt: prevPrompt
+        });
+      }
+    }
+
+    if (questionAnswerPairs.length === 0) {
       return alert("Bài đọc cần ít nhất 1 câu hoàn chỉnh để bắt đầu thử thách xếp câu!");
     }
 
-    sqItems = [...validSentences].sort(() => Math.random() - 0.5);
+    sqItems = [...questionAnswerPairs].sort(() => Math.random() - 0.5);
     sqCurrentIndex = 0;
     sqCorrectCount = 0;
 
@@ -1857,15 +1886,27 @@ A: Stella and Suzy.`;
       return;
     }
 
-    const current = sqItems[sqCurrentIndex];
+    const item = sqItems[sqCurrentIndex];
+    const current = item.targetItem;
+    const prev = item.prevPrompt;
+
     document.getElementById('sq-progress').innerText = `Câu: ${sqCurrentIndex + 1}/${sqItems.length}`;
     document.getElementById('sq-score').innerText = `Đúng: ${sqCorrectCount} ⭐`;
     document.getElementById('sq-feedback').innerText = '';
 
-    const hintText = current.speaker ? `Sắp xếp lời thoại của [ <b>${current.speaker}</b> ]:` : 'Sắp xếp các từ để hoàn thành câu:';
-    document.getElementById('sq-speaker-hint').innerHTML = hintText;
+    // Hiển thị câu hỏi / câu dẫn dắt tương ứng phía trên
+    const contextBox = document.getElementById('sq-context-box');
+    if (prev) {
+      contextBox.style.display = 'block';
+      document.getElementById('sq-context-speaker').innerHTML = `💬 <b>${prev.speaker ? prev.speaker : 'Bạn đối thoại'}</b> nói:`;
+      document.getElementById('sq-context-text').innerText = `"${prev.body}"`;
+      document.getElementById('sq-task-title').innerHTML = `👉 Bé hãy sắp xếp câu trả lời của [ <b>${current.speaker ? current.speaker : 'mình'}</b> ]:`;
+    } else {
+      contextBox.style.display = 'none';
+      document.getElementById('sq-task-title').innerHTML = `👉 Bé hãy sắp xếp các từ để hoàn thành câu của [ <b>${current.speaker ? current.speaker : 'nhân vật'}</b> ]:`;
+    }
 
-    // Tách các từ trong câu và xáo trộn
+    // Tách các từ trong câu cần xếp và xáo trộn
     const rawWords = current.body.trim().split(/\s+/);
     let shuffled = [...rawWords];
     let tries = 0;
@@ -1885,7 +1926,6 @@ A: Stella and Suzy.`;
     slots.innerHTML = '';
     bank.innerHTML = '';
 
-    // Vẽ các từ đã chọn
     sqChosenWords.forEach((item, slotIdx) => {
       const tile = document.createElement('div');
       tile.className = 'word-tile slot';
@@ -1894,7 +1934,6 @@ A: Stella and Suzy.`;
       slots.appendChild(tile);
     });
 
-    // Vẽ chỗ trống còn thiếu
     const targetLength = sqBankWords.length;
     for (let i = sqChosenWords.length; i < targetLength; i++) {
       const emptyTile = document.createElement('div');
@@ -1906,7 +1945,6 @@ A: Stella and Suzy.`;
       slots.appendChild(emptyTile);
     }
 
-    // Vẽ các thẻ từ rời trong ngân hàng
     sqBankWords.forEach(item => {
       const tile = document.createElement('div');
       tile.className = `word-tile bank ${item.used ? 'used' : ''}`;
@@ -1939,21 +1977,17 @@ A: Stella and Suzy.`;
     renderSentenceTiles();
   }
 
-  function speakCurrentSentenceTarget() {
-    const current = sqItems[sqCurrentIndex];
-    if (current) speakSingleSentence(current.body);
-  }
-
   function checkSentenceScrambleAnswer() {
-    const current = sqItems[sqCurrentIndex];
-    if (!current) return;
+    const item = sqItems[sqCurrentIndex];
+    if (!item) return;
 
+    const current = item.targetItem;
     const feedback = document.getElementById('sq-feedback');
     const chosenSentence = sqChosenWords.map(w => w.word).join(' ').trim();
     const targetSentence = current.body.trim();
 
     if (sqChosenWords.length < sqBankWords.length) {
-      feedback.innerHTML = `<span style="color: #D97706;">Bé hãy xếp đủ toàn bộ các từ trong câu nhé!</span>`;
+      feedback.innerHTML = `<span style="color: #D97706;">Bé hãy ghép đủ tất cả các từ trong câu nhé!</span>`;
       return;
     }
 
@@ -1962,9 +1996,9 @@ A: Stella and Suzy.`;
       sqCorrectCount++;
       stars += 10;
       document.getElementById('star-count').innerText = stars;
-      feedback.innerHTML = `<span style="color: #15803D;">✓ Quá xuất sắc! Cấu trúc câu hoàn toàn chính xác! (+10 ⭐)</span>`;
+      feedback.innerHTML = `<span style="color: #15803D;">✓ Quá xuất sắc! Cấu trúc câu trả lời hoàn toàn chính xác! (+10 ⭐)</span>`;
       
-      // Phát âm câu hoàn chỉnh để bé vừa nhìn vừa nghe
+      // Phát âm câu hoàn chỉnh sau khi bé xếp đúng
       speakSingleSentence(targetSentence);
 
       setTimeout(() => {
@@ -1973,11 +2007,11 @@ A: Stella and Suzy.`;
       }, 1600);
     } else {
       playWrongSound();
-      feedback.innerHTML = `<span style="color: #DC2626;">✗ Trật tự từ chưa chuẩn rồi. Bé thử đổi lại vị trí các từ nhé!</span>`;
+      feedback.innerHTML = `<span style="color: #DC2626;">✗ Trật tự từ chưa đúng ngữ pháp. Bé thử chạm đổi lại vị trí các từ nhé!</span>`;
     }
   }
 
-  // --- TAB 6: GRAMMAR (DROPDOWN BẢN GỐC) ---
+  // --- TAB 6: GRAMMAR DROPDOWN ---
   function renderGrammarTab(text) {
     const container = document.getElementById('grammar-container');
     const paras = text.split('\n').filter(p => p.trim() !== '');
@@ -1993,7 +2027,7 @@ A: Stella and Suzy.`;
       }
 
       const tokens = dialogBody.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "got", "oh", "do", "you", "who", "has"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "got", "oh", "do", "you", "who", "where"];
       const candidates = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 2);
 
       if (candidates.length === 0) return `<p>${para}</p>`;
