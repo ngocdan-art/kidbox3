@@ -51,7 +51,7 @@
 
     /* Input Box */
     .input-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px; margin-bottom: 18px; }
-    .input-box textarea { width: 100%; height: 85px; padding: 10px; border-radius: 8px; border: 1px solid #CBD5E1; font-size: 15px; resize: vertical; line-height: 1.5; }
+    .input-box textarea { width: 100%; height: 95px; padding: 10px; border-radius: 8px; border: 1px solid #CBD5E1; font-size: 15px; resize: vertical; line-height: 1.6; }
     .input-controls { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
 
     /* Audio Bar */
@@ -59,9 +59,9 @@
     .btn-audio { background: white; border: 1px solid #CBD5E1; border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
     .btn-audio:hover { background: #E2E8F0; }
     .audio-settings { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap; font-size: 13px; color: #475569; }
-    .audio-settings select { padding: 4px 8px; border-radius: 6px; border: 1px solid #CBD5E1; background: white; }
+    .audio-settings select { padding: 5px 8px; border-radius: 6px; border: 1px solid #CBD5E1; background: white; }
 
-    /* Tabs 1 hàng ngang duy nhất */
+    /* Tabs */
     .tab-nav { 
       display: flex; 
       gap: 4px; 
@@ -75,7 +75,7 @@
     .tab-btn { 
       background: none; 
       border: none; 
-      padding: 10px 12px; 
+      padding: 10px 14px; 
       font-size: 14.5px; 
       font-weight: bold; 
       color: #64748B; 
@@ -89,24 +89,24 @@
     .tab-content.active { display: block; }
 
     /* Tab 1: Listening */
-    .listen-sentence { padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 17px; line-height: 1.6; border: 1.5px solid transparent; transition: 0.2s; }
-    .listen-sentence.highlight { background: #EFF6FF; border-color: var(--primary); color: #1D4ED8; font-weight: 600; }
+    .listen-sentence { padding: 12px 16px; border-radius: 10px; margin-bottom: 10px; font-size: 16.5px; line-height: 1.6; border: 1.5px solid transparent; background: #F8FAFC; transition: 0.2s; display: block; width: 100%; }
+    .listen-sentence.highlight { background: #EFF6FF; border-color: var(--primary); color: #1D4ED8; font-weight: bold; }
     .blur-text { filter: blur(6px); user-select: none; transition: 0.3s; }
 
     /* Tab 2: Speaking & Role-play */
     .roleplay-panel { background: #FFF7ED; border: 1.5px solid #FDBA74; border-radius: 12px; padding: 14px; margin-bottom: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
     .roleplay-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .roleplay-select { padding: 6px 10px; border-radius: 6px; border: 1px solid #F97316; font-weight: bold; color: #C2410C; background: white; }
+    .roleplay-select { padding: 6px 12px; border-radius: 6px; border: 1.5px solid #F97316; font-weight: bold; color: #C2410C; background: white; }
     
     .speak-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px; margin-bottom: 14px; transition: 0.2s; }
     .speak-card.active-turn { border: 2px solid #EA580C; background: #FFFBEB; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.15); }
-    .speak-speaker-tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; }
+    .speak-speaker-tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; }
     .speaker-bot { background: #E0E7FF; color: #3730A3; }
     .speaker-user { background: #DCFCE7; color: #166534; }
 
-    .speak-target-text { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #1E293B; line-height: 1.5; }
+    .speak-target-text { font-size: 16.5px; font-weight: 600; margin-bottom: 8px; color: #1E293B; line-height: 1.5; }
     .speak-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-    .speak-feedback { font-size: 15px; margin-top: 6px; padding: 8px 12px; border-radius: 8px; background: white; border: 1px solid #E2E8F0; min-height: 38px; display: flex; align-items: center; gap: 6px; }
+    .speak-feedback { font-size: 14.5px; margin-top: 6px; padding: 8px 12px; border-radius: 8px; background: white; border: 1px solid #E2E8F0; min-height: 38px; display: flex; align-items: center; gap: 6px; }
     .word-match { color: #15803D; font-weight: bold; }
     .word-miss { color: #DC2626; text-decoration: line-through; }
 
@@ -138,9 +138,15 @@
     .vocab-meaning:hover { text-decoration: underline; }
     .vocab-actions { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
 
-    /* Khu vực dán nhanh từ vựng trong Tab Từ Vựng */
     .vocab-import-box { background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 12px; padding: 14px; margin-bottom: 16px; display: none; }
     .vocab-import-box textarea { width: 100%; height: 110px; padding: 10px; border-radius: 8px; border: 1px solid #94A3B8; font-size: 14px; font-family: monospace; resize: vertical; line-height: 1.5; }
+
+    /* Tab 6: Grammar */
+    .grammar-text { font-size: 17px; line-height: 2.6; color: #334155; }
+    .grammar-select { padding: 4px 10px; border-radius: 8px; border: 2px solid #94A3B8; font-size: 15.5px; background: white; font-weight: 700; cursor: pointer; margin: 0 3px; }
+    .grammar-select.correct { border-color: var(--success-border); background-color: var(--success-bg); color: #15803D; }
+    .grammar-select.wrong { border-color: var(--danger-border); background-color: var(--danger-bg); color: #B91C1C; }
+    .grammar-hint { font-size: 13.5px; color: var(--danger-border); font-weight: bold; margin-left: 4px; }
 
     /* Modal che mờ tuyệt đối */
     .modal-overlay { 
@@ -161,56 +167,51 @@
     .modal-card { 
       background: white; 
       width: 100%; 
-      max-width: 540px; 
+      max-width: 580px; 
       border-radius: 20px; 
       padding: 24px; 
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
       max-height: 95vh; 
       overflow-y: auto; 
-      position: relative;
     }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #E2E8F0; padding-bottom: 12px; margin-bottom: 12px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #E2E8F0; padding-bottom: 12px; margin-bottom: 14px; }
     
     .mode-tab-group { display: flex; gap: 4px; background: #F1F5F9; padding: 4px; border-radius: 10px; margin-bottom: 14px; }
     .mode-tab-btn { flex: 1; padding: 8px 4px; border-radius: 8px; border: none; background: transparent; font-weight: bold; font-size: 12px; color: #475569; cursor: pointer; transition: 0.15s; text-align: center; }
     .mode-tab-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
 
-    /* Flashcard */
-    .flashcard-box { border: 2.5px dashed #93C5FD; background: #EFF6FF; border-radius: 16px; padding: 24px 16px; text-align: center; margin-bottom: 14px; min-height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.2s; }
-    .flashcard-box:active { transform: scale(0.98); }
+    .flashcard-box { border: 2.5px dashed #93C5FD; background: #EFF6FF; border-radius: 16px; padding: 24px 16px; text-align: center; margin-bottom: 14px; min-height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; }
     .flashcard-word { font-size: 30px; font-weight: 900; color: #1E40AF; margin-bottom: 6px; }
     .flashcard-meaning { font-size: 20px; font-weight: 700; color: #047857; }
 
-    /* Trắc nghiệm */
     .quiz-vocab-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
     .btn-vocab-opt { padding: 12px 14px; font-size: 14px; font-weight: bold; border-radius: 10px; border: 1.5px solid #CBD5E1; background: white; cursor: pointer; text-align: center; transition: 0.15s; }
     .btn-vocab-opt:hover { background: #F1F5F9; border-color: #94A3B8; }
     .btn-vocab-opt.correct { background: var(--success-bg) !important; border-color: var(--success-border) !important; color: #15803D !important; }
     .btn-vocab-opt.wrong { background: var(--danger-bg) !important; border-color: var(--danger-border) !important; color: #B91C1C !important; }
 
-    /* Đảo chữ cái (Scramble Word) */
-    .scramble-box { display: none; text-align: center; padding: 6px 0; }
-    .scramble-slots { min-height: 52px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding: 6px; background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 12px; }
-    .scramble-bank { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    /* Word Tiles & Slots chung cho Sắp xếp */
+    .tiles-slots { min-height: 58px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding: 8px; background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 12px; }
+    .tiles-bank { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    
     .char-tile { width: 42px; height: 46px; font-size: 20px; font-weight: 800; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; user-select: none; }
     .char-tile.bank { background: #3B82F6; color: white; border: 2px solid #2563EB; box-shadow: 0 3px 0 #1D4ED8; }
     .char-tile.bank:active { transform: translateY(2px); box-shadow: none; }
     .char-tile.bank.used { visibility: hidden; pointer-events: none; }
     .char-tile.slot { background: white; color: #1E293B; border: 2px solid #94A3B8; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-    /* Luyện Đọc & Tự Luận */
+    /* Thẻ từ cho Sắp Xếp Câu (Sentence Scramble) */
+    .word-tile { padding: 8px 14px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.15s; user-select: none; display: inline-flex; align-items: center; justify-content: center; }
+    .word-tile.bank { background: #3B82F6; color: white; border: 2px solid #2563EB; box-shadow: 0 3px 0 #1D4ED8; }
+    .word-tile.bank:active { transform: translateY(2px); box-shadow: none; }
+    .word-tile.bank.used { visibility: hidden; pointer-events: none; }
+    .word-tile.slot { background: white; color: #0F172A; border: 2px solid #3B82F6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
     .spelling-box { display: none; text-align: center; padding: 6px 0; }
     .spelling-input { width: 100%; max-width: 320px; font-size: 22px; font-weight: bold; letter-spacing: 2px; text-align: center; padding: 10px; border-radius: 10px; border: 2px solid #94A3B8; outline: none; margin: 12px auto; display: block; }
     .spelling-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
     .spelling-input.correct { border-color: var(--success-border); background-color: var(--success-bg); color: #15803D; }
     .spelling-input.wrong { border-color: var(--danger-border); background-color: var(--danger-bg); color: #B91C1C; }
-
-    /* Tab 6: Grammar */
-    .grammar-text { font-size: 17px; line-height: 2.4; color: #334155; }
-    .grammar-select { padding: 3px 8px; border-radius: 6px; border: 1.5px solid #94A3B8; font-size: 15px; background: white; font-weight: 600; cursor: pointer; margin: 0 2px; }
-    .grammar-select.correct { border-color: var(--success-border); background-color: var(--success-bg); color: #15803D; }
-    .grammar-select.wrong { border-color: var(--danger-border); background-color: var(--danger-bg); color: #B91C1C; }
-    .grammar-hint { font-size: 13px; color: var(--danger-border); font-weight: bold; margin-left: 3px; }
 
     .action-row { margin-top: 18px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   </style>
@@ -233,9 +234,9 @@
   </div>
 
   <div class="input-box">
-    <textarea id="custom-script" placeholder="Dán văn bản đoạn hội thoại tiếng Anh vào đây (Chỉ nhập tiếng Anh)..."></textarea>
+    <textarea id="custom-script" placeholder="Dán văn bản đoạn hội thoại tiếng Anh vào đây (Mỗi câu một dòng)..."></textarea>
     <div class="input-controls">
-      <button class="btn btn-primary" onclick="saveAndApplyCurrentScript()">💾 Lưu & Cập Nhật Bài Đọc</button>
+      <button class="btn btn-primary" onclick="saveAndApplyCurrentScript()">💾 Lưu & Cập Nhật Toàn Bộ</button>
     </div>
   </div>
 
@@ -313,7 +314,7 @@
     </div>
   </div>
 
-  <!-- Tab 5: Từ Vựng (Đã bổ sung khu vực dán riêng) -->
+  <!-- Tab 5: Từ Vựng -->
   <div id="tab-vocab" class="tab-content">
     <div class="vocab-toolbar">
       <span style="font-size: 14px; color: #64748B;">💡 Bấm vào nghĩa tiếng Việt để sửa | Bấm ✕ để xóa từ</span>
@@ -324,12 +325,12 @@
       </div>
     </div>
 
-    <!-- Khung nhập nhanh từ vựng riêng biệt không ảnh hưởng 5 Tab còn lại -->
+    <!-- Khung nhập riêng biệt cho Từ Vựng -->
     <div id="vocab-import-box" class="vocab-import-box">
       <div style="font-size: 13.5px; font-weight: bold; color: #334155; margin-bottom: 6px;">
         📝 Dán danh sách từ vựng dạng: <code>tiếng anh: tiếng việt</code> (mỗi từ một dòng)
       </div>
-      <textarea id="vocab-bulk-input" placeholder="bank: ngân hàng&#10;bus station: bến xe buýt&#10;cinema: rạp chiếu phim&#10;hospital: bệnh viện&#10;swimming pool: bể bơi"></textarea>
+      <textarea id="vocab-bulk-input" placeholder="bank: ngân hàng&#10;bus station: bến xe buýt&#10;cinema: rạp chiếu phim&#10;hospital: bệnh viện"></textarea>
       <div style="display: flex; gap: 8px; margin-top: 8px;">
         <button class="btn btn-success" onclick="saveBulkVocabInput()">💾 Lưu Vào Tab Từ Vựng</button>
         <button class="btn btn-secondary" onclick="toggleVocabImportBox()">Đóng</button>
@@ -339,18 +340,19 @@
     <div class="vocab-grid" id="vocab-container"></div>
   </div>
 
-  <!-- Tab 6: Grammar -->
+  <!-- Tab 6: Grammar (Tích hợp thêm nút Thử Thách Xếp Câu) -->
   <div id="tab-grammar" class="tab-content">
     <div class="grammar-text" id="grammar-container"></div>
     <div class="action-row">
       <button class="btn btn-primary" onclick="checkGrammar()">Nộp Bài</button>
       <button class="btn btn-secondary" onclick="resetGrammar()">Làm Lại</button>
+      <button class="btn btn-warning" onclick="openSentenceScrambleModal()">🧩 Thử Thách Xếp Câu</button>
       <span id="attempts-txt" style="font-size: 14px; color: #64748B;">Còn lại: 3 lượt</span>
     </div>
   </div>
 </div>
 
-<!-- Modal Kiểm Tra Ghi Nhớ Từ Vựng -->
+<!-- Modal 1: Kiểm Tra Ghi Nhớ Từ Vựng -->
 <div id="vocab-quiz-modal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-header">
@@ -392,7 +394,7 @@
     <div id="vq-spelling-container" class="spelling-box">
       <div id="spelling-viet-meaning" style="font-size: 16px; font-weight: bold; color: #047857; margin-bottom: 4px;">Nghĩa: ...</div>
       <div id="spelling-length-hint" style="font-size: 13px; color: #64748B; margin-bottom: 8px;">Gợi ý độ dài từ: _ _ _ _ _</div>
-      <input type="text" id="spelling-input" class="spelling-input" placeholder="Gõ từ tiếng Anh vào đây..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <input type="text" id="spelling-input" class="spelling-input" placeholder="Gõ từ tiếng Anh vào đây..." autocomplete="off">
       <div style="display: flex; justify-content: center; gap: 8px; margin-top: 10px;">
         <button class="btn btn-success" onclick="checkSpellingAnswer()">Kiểm Tra Từ Này</button>
         <button class="btn btn-secondary" onclick="giveSpellingHint()">💡 Gợi ý chữ đầu</button>
@@ -402,8 +404,8 @@
     <div id="vq-scramble-container" class="scramble-box">
       <div id="scramble-meaning" style="font-size: 16px; font-weight: bold; color: #047857; margin-bottom: 10px;">Nghĩa: ...</div>
       <div style="font-size: 13px; color: #64748B; margin-bottom: 6px;">Bé hãy chạm vào các chữ cái để ghép đúng từ nhé:</div>
-      <div class="scramble-slots" id="scramble-slots" title="Bấm vào chữ đã chọn để gỡ ra"></div>
-      <div class="scramble-bank" id="scramble-bank"></div>
+      <div class="tiles-slots" id="scramble-slots"></div>
+      <div class="tiles-bank" id="scramble-bank"></div>
       <div style="display: flex; justify-content: center; gap: 8px; margin-top: 10px;">
         <button class="btn btn-success" onclick="checkScrambleAnswer()">Kiểm Tra Kết Quả</button>
         <button class="btn btn-secondary" onclick="resetScrambleCurrent()">Làm Lại Từ Này</button>
@@ -411,6 +413,39 @@
     </div>
 
     <div id="vq-feedback" style="margin-top: 14px; font-weight: bold; font-size: 15px; min-height: 24px; text-align: center;"></div>
+  </div>
+</div>
+
+<!-- Modal 2: Thử Thách Sắp Xếp Câu Ngữ Pháp (Sentence Scramble) -->
+<div id="sentence-scramble-modal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="color: #1E293B; font-size: 17px;">🧩 Thử Thách Sắp Xếp Câu Đúng Ngữ Pháp</h3>
+      <button onclick="closeSentenceScrambleModal()" style="background: none; border: none; font-size: 20px; font-weight: bold; color: #94A3B8; cursor: pointer;">✕</button>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <span id="sq-progress" style="font-weight: bold; color: #64748B; font-size: 14px;">Câu: 1/5</span>
+      <span id="sq-score" style="font-weight: bold; color: #047857; font-size: 14px;">Đúng: 0 ⭐</span>
+    </div>
+
+    <div style="font-size: 14.5px; font-weight: bold; color: #334155; margin-bottom: 8px;" id="sq-speaker-hint">
+      Sắp xếp các từ để hoàn thành câu:
+    </div>
+
+    <!-- Hàng các từ đã ghép -->
+    <div class="tiles-slots" id="sentence-slots" style="min-height: 64px;" title="Chạm vào từ đã chọn để gỡ ra"></div>
+
+    <!-- Hàng các từ xáo trộn để bé chọn -->
+    <div class="tiles-bank" id="sentence-bank"></div>
+
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 12px;">
+      <button class="btn btn-primary" onclick="speakCurrentSentenceTarget()">🔊 Nghe Câu Mẫu</button>
+      <button class="btn btn-success" onclick="checkSentenceScrambleAnswer()">Kiểm Tra Câu Này</button>
+      <button class="btn btn-secondary" onclick="resetSentenceCurrent()">Làm Lại</button>
+    </div>
+
+    <div id="sq-feedback" style="margin-top: 14px; font-weight: bold; font-size: 15px; min-height: 24px; text-align: center;"></div>
   </div>
 </div>
 
@@ -423,7 +458,6 @@
   let isPlayingQueue = false;
   let isBlindMode = false;
 
-  // Role-play State
   let isRolePlaying = false;
   let rolePlayIndex = 0;
   let currentDialogueList = [];
@@ -436,12 +470,18 @@
   let vqIsFlipped = false;
   let vqMode = 'speak';
 
-  // Scramble State
+  // Vocab Scramble State
   let scrambleOriginalWord = '';
   let scrambleBankChars = [];
   let scrambleChosenChars = [];
 
-  // Web Speech Recognition
+  // Sentence Scramble State
+  let sqItems = [];
+  let sqCurrentIndex = 0;
+  let sqCorrectCount = 0;
+  let sqBankWords = [];
+  let sqChosenWords = [];
+
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let recognition = null;
   if (SpeechRecognition) {
@@ -450,12 +490,9 @@
       recognition.lang = 'en-US';
       recognition.continuous = false;
       recognition.interimResults = false;
-    } catch (e) {
-      console.warn("SpeechRecognition init error:", e);
-    }
+    } catch (e) {}
   }
 
-  // Web Audio API
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playTone(freq, duration, type = "triangle", delay = 0, volume = 0.25) {
     setTimeout(() => {
@@ -489,33 +526,21 @@
     playTone(311.13, 0.40, "sawtooth", 200, 0.2);
   }
 
-  // Từ điển nội bộ
   const kidsDictionary = {
     "cinema": "rạp chiếu phim", "film": "bộ phim", "supermarket": "siêu thị",
     "market": "khu chợ", "library": "thư viện", "quiet": "yên lặng",
     "morning": "buổi sáng", "food": "thức ăn", "buy": "mua sắm",
     "bank": "ngân hàng", "bus station": "bến xe buýt", "car park": "bãi đỗ xe",
-    "hospital": "bệnh viện", "swimming pool": "bể bơi", "sports center": "trung tâm thể thao", "sports centre": "trung tâm thể thao",
-    "shop": "cửa hàng", "opposite": "đối diện", "child": "đứa trẻ", "park": "công viên", "road": "con đường", "home": "nhà",
-    "house": "ngôi nhà", "flat": "căn hộ", "address": "địa chỉ", "upstairs": "lên lầu",
-    "wardrobe": "tủ quần áo", "worker": "người lao động",
-    "monday": "thứ Hai", "tuesday": "thứ Ba", "wednesday": "thứ Tư", "thursday": "thứ Năm", "friday": "thứ Sáu",
-    "school": "trường học", "homework": "bài tập về nhà", "piano": "đàn dương cầm",
-    "bus": "xe buýt", "catch": "bắt / đón (xe)", "catches": "đón (xe)", "dad": "bố",
-    "bell": "chuông", "ringing": "đang reo", "pack": "thu dọn", "bag": "cặp sách", "pencil": "bút chì",
-    "case": "hộp bút", "ruler": "thước kẻ", "chair": "cái ghế", "empty": "trống", "seat": "chỗ ngồi",
-    "book": "quyển sách", "read": "đọc", "open": "mở ra", "page": "trang sách", "forget": "quên",
-    "weather": "thời tiết", "sunny": "nắng đẹp", "warm": "ấm áp", "hot": "nóng", "cold": "lạnh",
-    "tree": "cái cây", "draw": "vẽ tranh", "big": "to lớn"
+    "hospital": "bệnh viện", "swimming pool": "hồ bơi", "sports center": "trung tâm thể thao",
+    "uncle": "chú / bác", "aunt": "cô / dì", "brother": "anh / em trai", "daughter": "con gái",
+    "daughters": "những người con gái", "painting": "vẽ tranh", "picture": "bức tranh",
+    "granddaughter": "cháu gái", "enjoys": "thích thú", "family": "gia đình"
   };
 
   const smartDistractors = {
-    "cinema": "camera", "film": "milk", "supermarket": "market", "market": "supermarket",
-    "library": "dictionary", "quiet": "quite", "morning": "evening", "buy": "by",
-    "must": "most", "make": "take", "food": "foot", "see": "sea",
-    "monday": "sunday", "school": "pool", "catch": "match", "bus": "bike",
-    "eight": "night", "blue": "red", "red": "blue", "big": "small",
-    "bell": "ball", "pack": "pick", "bag": "back", "chair": "cheer", "seat": "seal"
+    "uncle": "uncle's", "aunt": "aunt's", "brother": "bothers", "daughter": "daughters",
+    "daughters": "daughter", "painting": "paint", "picture": "pictures", "family": "famous",
+    "enjoys": "enjoy", "supermarket": "market", "market": "supermarket"
   };
 
   function createLookAlike(word) {
@@ -525,29 +550,24 @@
     if (lower.includes('a')) return lower.replace('a', 'o');
     if (lower.includes('e')) return lower.replace('e', 'a');
     if (lower.includes('i')) return lower.replace('i', 'e');
-    if (lower.includes('o')) return lower.replace('o', 'a');
     return lower + "s";
   }
 
-  const defaultText = `Child: I go to the cinema to see a film!
-Parent: Where do we go to buy food?
-Child: We go to the supermarket or the market!
-Parent: What must you do in the library?
-Child: I must be quiet in the library!
-Parent: Must you make your bed every morning?
-Child: Yes, I must!`;
+  const defaultText = `Q: Who's Stella's uncle?
+A: Uncle Fred.
+Q: Who's Suzy's aunt?
+A: Aunt May.
+Q: Has Stella got a brother?
+A: Yes, she has. His name is Simon.
+Q: Who are Mrs Star's daughters?
+A: Stella and Suzy.`;
 
-  const initialVocabList = [
-    { word: "bank", meaning: "ngân hàng" },
-    { word: "bus station", meaning: "bến xe buýt" },
-    { word: "cinema", meaning: "rạp chiếu phim" },
-    { word: "hospital", meaning: "bệnh viện" },
-    { word: "library", meaning: "thư viện" },
-    { word: "market", meaning: "chợ" },
-    { word: "shop", meaning: "cửa hàng" },
-    { word: "sports centre", meaning: "trung tâm thể thao" },
-    { word: "supermarket", meaning: "siêu thị" },
-    { word: "swimming pool", meaning: "bể bơi" }
+  const defaultVocabList = [
+    { word: "uncle", meaning: "chú / bác" },
+    { word: "aunt", meaning: "cô / dì" },
+    { word: "brother", meaning: "anh / em trai" },
+    { word: "daughters", meaning: "con gái" },
+    { word: "family", meaning: "gia đình" }
   ];
 
   function getStoredUnits() {
@@ -555,7 +575,7 @@ Child: Yes, I must!`;
       const stored = JSON.parse(localStorage.getItem('english_app_units'));
       if (Array.isArray(stored) && stored.length > 0) return stored;
     } catch(e) {}
-    return [{ id: 1, title: "Unit 7: 11", text: defaultText, customVocab: initialVocabList }];
+    return [{ id: 1, title: "Unit 2: Family", text: defaultText, customVocab: defaultVocabList }];
   }
 
   let units = getStoredUnits();
@@ -564,15 +584,11 @@ Child: Yes, I must!`;
   function promptEditUnitTitle() {
     const unit = units.find(u => u.id === currentUnitId);
     if (!unit) return;
-
-    const currentTitle = unit.title || "Bài học mới";
-    const newTitle = prompt("Nhập tiêu đề mới cho Unit này:", currentTitle);
-
+    const newTitle = prompt("Nhập tiêu đề mới cho Unit này:", unit.title || "Bài học mới");
     if (newTitle !== null && newTitle.trim() !== "") {
       unit.title = newTitle.trim();
       localStorage.setItem('english_app_units', JSON.stringify(units));
       renderUnitDropdown();
-      alert("Đã đổi tên bài học thành công!");
     }
   }
 
@@ -614,12 +630,8 @@ Child: Yes, I must!`;
           renderUnitDropdown();
           loadUnit(currentUnitId);
           alert(`Đã mở thành công ${units.length} bài học từ file!`);
-        } else {
-          alert("Không tìm thấy bài học hợp lệ trong file!");
         }
-      } catch (err) { 
-        alert("Lỗi khi đọc file sao lưu: " + err.message); 
-      }
+      } catch (err) { alert("Lỗi đọc file: " + err.message); }
     };
     reader.readAsText(file);
     event.target.value = '';
@@ -635,7 +647,7 @@ Child: Yes, I must!`;
       const option = document.createElement('option');
       option.value = index;
       option.textContent = `${voice.name.replace(/Microsoft|Google|Apple/g, '').trim()} (${voice.lang})`;
-      if (voice.name.includes('Natural') || voice.name.includes('Google US English') || voice.name.includes('Jenny') || voice.name.includes('Samantha')) {
+      if (voice.name.includes('Natural') || voice.name.includes('Google US English') || voice.name.includes('Jenny') || voice.name.includes('Samantha') || voice.name.includes('Aria')) {
         selectedIndex = index;
       }
       voiceSelect.appendChild(option);
@@ -656,9 +668,7 @@ Child: Yes, I must!`;
     const spInput = document.getElementById('spelling-input');
     if (spInput) {
       spInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          checkSpellingAnswer();
-        }
+        if (e.key === 'Enter') checkSpellingAnswer();
       });
     }
   };
@@ -689,7 +699,7 @@ Child: Yes, I must!`;
     units.push({ 
       id: newId, 
       title: title.trim(), 
-      text: "Child: I go to the cinema to see a film!\nParent: Where do we go to buy food?", 
+      text: "Q: Who's Stella's uncle?\nA: Uncle Fred.", 
       customVocab: [] 
     });
     localStorage.setItem('english_app_units', JSON.stringify(units));
@@ -717,15 +727,13 @@ Child: Yes, I must!`;
     renderLesson(unit);
   }
 
-  // KHU VỰC NHẬP BÀI ĐỌC CHÍNH (CHỈ CHẤP NHẬN BÀI TIẾNG ANH)
   function saveAndApplyCurrentScript() {
     const rawText = document.getElementById('custom-script').value.trim();
     if (!rawText) return alert("Vui lòng nhập nội dung!");
 
-    // Kiểm tra nếu người dùng vô tình dán tiếng Việt vào khung này
     const vietnameseCharRegex = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
     if (vietnameseCharRegex.test(rawText)) {
-      const confirmUse = confirm("Phát hiện văn bản có chứa tiếng Việt! Khung này chỉ dành cho bài đọc tiếng Anh. Nếu bạn muốn thêm danh sách từ vựng, vui lòng bấm vào Tab 'Từ Vựng' -> chọn '📋 Nhập Danh Sách Từ Vựng'. Bạn có muốn tiếp tục lưu vào bài đọc không?");
+      const confirmUse = confirm("Phát hiện bài đọc chứa tiếng Việt! Khung này chỉ dành cho đoạn văn tiếng Anh. Để thêm từ vựng, vui lòng dán vào Tab 'Từ Vựng' -> '📋 Nhập Danh Sách Từ Vựng'. Bạn có chắc chắn muốn lưu?");
       if (!confirmUse) return;
     }
 
@@ -738,13 +746,10 @@ Child: Yes, I must!`;
     alert("Đã lưu và cập nhật bài đọc thành công!");
   }
 
-  // --- TÍNH NĂNG MỚI: KHU VỰC NHẬP DANH SÁCH TỪ VỰNG RIÊNG BIỆT ---
   function toggleVocabImportBox() {
     const box = document.getElementById('vocab-import-box');
     box.style.display = box.style.display === 'block' ? 'none' : 'block';
-    if (box.style.display === 'block') {
-      document.getElementById('vocab-bulk-input').focus();
-    }
+    if (box.style.display === 'block') document.getElementById('vocab-bulk-input').focus();
   }
 
   function saveBulkVocabInput() {
@@ -756,11 +761,8 @@ Child: Yes, I must!`;
 
     lines.forEach(line => {
       let parts = null;
-      if (line.includes(':')) {
-        parts = line.split(':');
-      } else if (line.includes(' - ')) {
-        parts = line.split(' - ');
-      }
+      if (line.includes(':')) parts = line.split(':');
+      else if (line.includes(' - ')) parts = line.split(' - ');
 
       if (parts && parts.length >= 2) {
         const eng = parts[0].trim();
@@ -773,18 +775,16 @@ Child: Yes, I must!`;
     });
 
     if (newVocabList.length === 0) {
-      return alert("Không nhận diện được định dạng! Vui lòng nhập theo mẫu:\nbank: ngân hàng\ncinema: rạp chiếu phim");
+      return alert("Vui lòng nhập theo định dạng:\nbank: ngân hàng\ncinema: rạp chiếu phim");
     }
 
     const idx = units.findIndex(u => u.id === currentUnitId);
     if (idx !== -1) {
       units[idx].customVocab = newVocabList;
       localStorage.setItem('english_app_units', JSON.stringify(units));
-      
-      // Chỉ cập nhật duy nhất Tab Từ Vựng, 5 Tab còn lại hoàn toàn không bị ảnh hưởng
       renderVocabTab(units[idx]);
       toggleVocabImportBox();
-      alert(`Đã cập nhật thành công ${newVocabList.length} từ vựng vào Tab Từ Vựng!\nCác bài tập Nghe, Nói, Grammar vẫn giữ nguyên bài đọc chuẩn.`);
+      alert(`Đã cập nhật ${newVocabList.length} từ vựng vào Tab Từ Vựng!\nCác Tab Nghe, Nói, Grammar vẫn giữ nguyên bài đọc.`);
     }
   }
 
@@ -798,24 +798,25 @@ Child: Yes, I must!`;
     document.getElementById('tab-' + tabId).classList.add('active');
   }
 
+  // TÁCH DÒNG RÕ RÀNG (KHÔNG DỒN CÂU)
   function renderLesson(unit) {
     const text = unit.text;
-    const lines = text.split('\n').filter(l => l.trim() !== '');
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '');
     let sentences = [];
     currentDialogueList = [];
     detectedRoles = [];
 
     lines.forEach(l => {
       let speaker = "";
-      let body = l.trim();
+      let body = l;
       const cIdx = l.indexOf(':');
-      if (cIdx !== -1 && cIdx < 15) {
+      if (cIdx !== -1 && cIdx < 20) {
         speaker = l.slice(0, cIdx).trim();
         body = l.slice(cIdx + 1).trim();
         if (!detectedRoles.includes(speaker)) detectedRoles.push(speaker);
       }
-      sentences.push(l.trim());
-      currentDialogueList.push({ speaker, body, full: l.trim() });
+      sentences.push(l);
+      currentDialogueList.push({ speaker, body, full: l });
     });
 
     renderListenTab(sentences);
@@ -845,7 +846,7 @@ Child: Yes, I must!`;
     });
   }
 
-  // --- TAB 2: SPEAK & ROLE-PLAY ---
+  // --- TAB 2: SPEAK ---
   function renderSpeakTab() {
     const container = document.getElementById('speak-container');
     const roleSelect = document.getElementById('user-role-select');
@@ -1040,7 +1041,7 @@ Child: Yes, I must!`;
     return isPassed;
   }
 
-  // --- TAB 3: NGHE - HIỂU TƯƠNG TÁC ---
+  // --- TAB 3: NGHE - HIỂU ---
   function renderListenQuizTab(dialogueList) {
     const container = document.getElementById('listen-quiz-container');
     container.innerHTML = '';
@@ -1059,7 +1060,7 @@ Child: Yes, I must!`;
       const originalText = item.body.trim();
 
       const tokens = originalText.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "is", "at", "with", "me", "do", "you", "does"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "is", "at", "with", "me", "do", "you", "does", "who", "has"];
       const keyWords = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 3);
 
       let distractorSentence = originalText;
@@ -1195,7 +1196,7 @@ Child: Yes, I must!`;
       }
 
       const tokens = dialogBody.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "do", "you"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "do", "you", "who", "has"];
       const candidates = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 3);
 
       if (candidates.length === 0) return;
@@ -1291,16 +1292,8 @@ Child: Yes, I must!`;
   function getFastMeaning(word) {
     const lower = word.toLowerCase().trim();
     if (kidsDictionary[lower]) return kidsDictionary[lower];
-
     const singular = lower.replace(/(s|es)$/, '');
     if (kidsDictionary[singular]) return kidsDictionary[singular];
-
-    const rootEd = lower.replace(/ed$/, '');
-    if (kidsDictionary[rootEd]) return kidsDictionary[rootEd];
-
-    const rootIng = lower.replace(/ing$/, '');
-    if (kidsDictionary[rootIng]) return kidsDictionary[rootIng];
-
     return null;
   }
 
@@ -1342,7 +1335,6 @@ Child: Yes, I must!`;
     const meaning = prompt(`Nhập nghĩa tiếng Việt cho từ "${cleanWord}":`, defaultMeaning);
     if (meaning !== null) {
       kidsDictionary[cleanWord.toLowerCase()] = meaning.trim() || "từ mới";
-      
       const unit = units.find(u => u.id === currentUnitId);
       if (unit) {
         if (!unit.customVocab) unit.customVocab = getCurrentDisplayedVocabList();
@@ -1362,10 +1354,7 @@ Child: Yes, I must!`;
     const unit = units.find(u => u.id === currentUnitId);
     if (!unit) return;
 
-    if (!unit.customVocab) {
-      unit.customVocab = getCurrentDisplayedVocabList();
-    }
-
+    if (!unit.customVocab) unit.customVocab = getCurrentDisplayedVocabList();
     unit.customVocab = unit.customVocab.filter(v => v.word.toLowerCase() !== word.toLowerCase());
     localStorage.setItem('english_app_units', JSON.stringify(units));
     renderVocabTab(unit);
@@ -1402,11 +1391,10 @@ Child: Yes, I must!`;
       vocabItems = unit.customVocab;
     } else {
       const words = unit.text.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ['the', 'this', 'that', 'with', 'from', 'what', 'your', 'and', 'she', 'his', 'can', 'you', 'put', 'are', 'child', 'parent', 'where', 'must'];
-      
+      const stopWords = ['the', 'this', 'that', 'with', 'from', 'what', 'your', 'and', 'she', 'his', 'can', 'you', 'put', 'are', 'who', 'has', 'got'];
       const cleanWords = [...new Set(words.map(w => w.toLowerCase()))]
         .filter(w => !stopWords.includes(w) && w.length >= 3)
-        .slice(0, 11);
+        .slice(0, 10);
 
       vocabItems = cleanWords.map(w => ({
         word: w,
@@ -1431,9 +1419,7 @@ Child: Yes, I must!`;
         </div>
       `;
 
-      if (!meaningText) {
-        fetchOnlineTranslation(w, spanId);
-      }
+      if (!meaningText) fetchOnlineTranslation(w, spanId);
     });
   }
 
@@ -1454,13 +1440,12 @@ Child: Yes, I must!`;
     recognition.start();
   }
 
-  // --- LOGIC 5 CHỨC NĂNG KIỂM TRA GHI NHỚ TỪ VỰNG ---
+  // --- MODAL 1: KIỂM TRA TỪ VỰNG ---
   function openVocabQuizModal(initialMode = 'speak') {
     syncCurrentUnitVocab();
     const displayed = getCurrentDisplayedVocabList().filter(v => !v.meaning.includes("Đang tìm") && !v.meaning.includes("Chạm"));
-    if (displayed.length < 2) {
-      return alert("Bài học cần ít nhất 2 từ vựng có nghĩa đầy đủ để bắt đầu kiểm tra nhé!");
-    }
+    if (displayed.length < 2) return alert("Bài học cần ít nhất 2 từ vựng có nghĩa đầy đủ để bắt đầu kiểm tra!");
+    
     vqItems = [...displayed].sort(() => Math.random() - 0.5);
     vqCurrentIndex = 0;
     vqCorrectCount = 0;
@@ -1524,7 +1509,6 @@ Child: Yes, I must!`;
 
     const wordCap = current.word;
 
-    // 1. CHẾ ĐỘ SPEAK
     if (vqMode === 'speak') {
       document.getElementById('vq-card').style.display = 'flex';
       document.getElementById('vq-word').innerText = wordCap;
@@ -1532,9 +1516,7 @@ Child: Yes, I must!`;
       document.getElementById('vq-meaning').style.display = 'block';
       document.getElementById('vq-hint-text').innerText = 'Bé hãy bấm nút mic và đọc thật to, chuẩn từ này nhé!';
       speakVocabQuizWord();
-    }
-    // 2. CHẾ ĐỘ TỰ LUẬN
-    else if (vqMode === 'spelling') {
+    } else if (vqMode === 'spelling') {
       document.getElementById('vq-card').style.display = 'none';
       document.getElementById('spelling-viet-meaning').innerText = `Nghĩa tiếng Việt: "${current.meaning}"`;
       
@@ -1547,16 +1529,12 @@ Child: Yes, I must!`;
       input.disabled = false;
       setTimeout(() => input.focus(), 250);
       speakVocabQuizWord();
-    }
-    // 3. CHẾ ĐỘ SẮP XẾP CHỮ CÁI
-    else if (vqMode === 'scramble') {
+    } else if (vqMode === 'scramble') {
       document.getElementById('vq-card').style.display = 'none';
       document.getElementById('scramble-meaning').innerText = `Nghĩa tiếng Việt: "${current.meaning}"`;
       initScrambleGame(current.word);
       speakVocabQuizWord();
-    }
-    // 4. CHẾ ĐỘ TRẮC NGHIỆM
-    else if (vqMode === 'choice') {
+    } else if (vqMode === 'choice') {
       document.getElementById('vq-card').style.display = 'flex';
       document.getElementById('vq-word').innerText = wordCap;
       document.getElementById('vq-meaning').innerText = current.meaning;
@@ -1577,9 +1555,7 @@ Child: Yes, I must!`;
         btn.onclick = () => checkVocabQuizAnswer(opt, current.meaning, btn);
         optionsContainer.appendChild(btn);
       });
-    }
-    // 5. CHẾ ĐỘ FLASHCARD
-    else if (vqMode === 'flashcard') {
+    } else if (vqMode === 'flashcard') {
       document.getElementById('vq-card').style.display = 'flex';
       document.getElementById('vq-word').innerText = wordCap;
       document.getElementById('vq-meaning').innerText = current.meaning;
@@ -1615,7 +1591,6 @@ Child: Yes, I must!`;
     }
   }
 
-  // Chấm điểm Luyện Đọc
   function startVocabSpeakingTest() {
     if (!recognition) return alert("Trình duyệt chưa hỗ trợ mic!");
     const current = vqItems[vqCurrentIndex];
@@ -1634,7 +1609,6 @@ Child: Yes, I must!`;
 
       const spoken = e.results[0][0].transcript.toLowerCase().trim();
       const target = current.word.toLowerCase().trim();
-
       const targetWords = target.split(/\s+/);
       const spokenWords = spoken.split(/\s+/);
 
@@ -1671,7 +1645,6 @@ Child: Yes, I must!`;
     recognition.start();
   }
 
-  // Chấm điểm Tự Luận
   function checkSpellingAnswer() {
     const current = vqItems[vqCurrentIndex];
     if (!current) return;
@@ -1681,10 +1654,7 @@ Child: Yes, I must!`;
     const correctSpelled = current.word.trim().toLowerCase();
     const feedback = document.getElementById('vq-feedback');
 
-    if (!userSpelled) {
-      feedback.innerHTML = `<span style="color: #D97706;">Bé hãy gõ từ vào ô nhé!</span>`;
-      return;
-    }
+    if (!userSpelled) return;
 
     if (userSpelled === correctSpelled) {
       playSuccessSound();
@@ -1719,7 +1689,6 @@ Child: Yes, I must!`;
     input.focus();
   }
 
-  // Chấm điểm Trắc Nghiệm
   function checkVocabQuizAnswer(selected, correct, clickedBtn) {
     const allBtns = document.querySelectorAll('.btn-vocab-opt');
     allBtns.forEach(b => b.disabled = true);
@@ -1750,7 +1719,7 @@ Child: Yes, I must!`;
     }
   }
 
-  // Sắp xếp chữ cái
+  // Sắp xếp chữ cái (Vocab Scramble)
   function initScrambleGame(word) {
     scrambleOriginalWord = word.trim();
     let chars = scrambleOriginalWord.split('').filter(c => c !== ' ');
@@ -1851,7 +1820,164 @@ Child: Yes, I must!`;
     }
   }
 
-  // --- TAB 6: GRAMMAR ---
+  // --- MODAL 2: THỬ THÁCH SẮP XẾP CÂU (SENTENCE SCRAMBLE CHO TAB GRAMMAR) ---
+  function openSentenceScrambleModal() {
+    // Lấy các câu trong bài đọc có ít nhất 3 từ
+    const validSentences = currentDialogueList.filter(item => {
+      const words = item.body.trim().split(/\s+/);
+      return words.length >= 3;
+    });
+
+    if (validSentences.length === 0) {
+      return alert("Bài đọc cần ít nhất 1 câu hoàn chỉnh để bắt đầu thử thách xếp câu!");
+    }
+
+    sqItems = [...validSentences].sort(() => Math.random() - 0.5);
+    sqCurrentIndex = 0;
+    sqCorrectCount = 0;
+
+    document.body.classList.add('modal-open');
+    document.getElementById('sentence-scramble-modal').style.display = 'flex';
+    loadSentenceScrambleQuestion();
+  }
+
+  function closeSentenceScrambleModal() {
+    stopAudio();
+    document.body.classList.remove('modal-open');
+    document.getElementById('sentence-scramble-modal').style.display = 'none';
+  }
+
+  function loadSentenceScrambleQuestion() {
+    if (sqCurrentIndex >= sqItems.length) {
+      playSuccessSound();
+      stars += sqCorrectCount * 10;
+      document.getElementById('star-count').innerText = stars;
+      alert(`🎉 Xuất sắc! Bé đã xếp đúng ${sqCorrectCount}/${sqItems.length} câu ngữ pháp! (+${sqCorrectCount * 10} ⭐)`);
+      closeSentenceScrambleModal();
+      return;
+    }
+
+    const current = sqItems[sqCurrentIndex];
+    document.getElementById('sq-progress').innerText = `Câu: ${sqCurrentIndex + 1}/${sqItems.length}`;
+    document.getElementById('sq-score').innerText = `Đúng: ${sqCorrectCount} ⭐`;
+    document.getElementById('sq-feedback').innerText = '';
+
+    const hintText = current.speaker ? `Sắp xếp lời thoại của [ <b>${current.speaker}</b> ]:` : 'Sắp xếp các từ để hoàn thành câu:';
+    document.getElementById('sq-speaker-hint').innerHTML = hintText;
+
+    // Tách các từ trong câu và xáo trộn
+    const rawWords = current.body.trim().split(/\s+/);
+    let shuffled = [...rawWords];
+    let tries = 0;
+    while (tries < 10 && shuffled.join(' ') === rawWords.join(' ')) {
+      shuffled.sort(() => Math.random() - 0.5);
+      tries++;
+    }
+
+    sqBankWords = shuffled.map((word, idx) => ({ word, id: idx, used: false }));
+    sqChosenWords = [];
+    renderSentenceTiles();
+  }
+
+  function renderSentenceTiles() {
+    const slots = document.getElementById('sentence-slots');
+    const bank = document.getElementById('sentence-bank');
+    slots.innerHTML = '';
+    bank.innerHTML = '';
+
+    // Vẽ các từ đã chọn
+    sqChosenWords.forEach((item, slotIdx) => {
+      const tile = document.createElement('div');
+      tile.className = 'word-tile slot';
+      tile.innerText = item.word;
+      tile.onclick = () => unpickSentenceWord(slotIdx);
+      slots.appendChild(tile);
+    });
+
+    // Vẽ chỗ trống còn thiếu
+    const targetLength = sqBankWords.length;
+    for (let i = sqChosenWords.length; i < targetLength; i++) {
+      const emptyTile = document.createElement('div');
+      emptyTile.className = 'word-tile slot';
+      emptyTile.style.borderColor = '#CBD5E1';
+      emptyTile.style.color = '#94A3B8';
+      emptyTile.style.background = '#F1F5F9';
+      emptyTile.innerText = '____';
+      slots.appendChild(emptyTile);
+    }
+
+    // Vẽ các thẻ từ rời trong ngân hàng
+    sqBankWords.forEach(item => {
+      const tile = document.createElement('div');
+      tile.className = `word-tile bank ${item.used ? 'used' : ''}`;
+      tile.innerText = item.word;
+      tile.onclick = () => pickSentenceWord(item.id);
+      bank.appendChild(tile);
+    });
+  }
+
+  function pickSentenceWord(id) {
+    const item = sqBankWords.find(w => w.id === id);
+    if (!item || item.used) return;
+    item.used = true;
+    sqChosenWords.push(item);
+    renderSentenceTiles();
+  }
+
+  function unpickSentenceWord(slotIdx) {
+    const removed = sqChosenWords.splice(slotIdx, 1)[0];
+    if (removed) {
+      removed.used = false;
+      renderSentenceTiles();
+    }
+  }
+
+  function resetSentenceCurrent() {
+    sqBankWords.forEach(w => w.used = false);
+    sqChosenWords = [];
+    document.getElementById('sq-feedback').innerText = '';
+    renderSentenceTiles();
+  }
+
+  function speakCurrentSentenceTarget() {
+    const current = sqItems[sqCurrentIndex];
+    if (current) speakSingleSentence(current.body);
+  }
+
+  function checkSentenceScrambleAnswer() {
+    const current = sqItems[sqCurrentIndex];
+    if (!current) return;
+
+    const feedback = document.getElementById('sq-feedback');
+    const chosenSentence = sqChosenWords.map(w => w.word).join(' ').trim();
+    const targetSentence = current.body.trim();
+
+    if (sqChosenWords.length < sqBankWords.length) {
+      feedback.innerHTML = `<span style="color: #D97706;">Bé hãy xếp đủ toàn bộ các từ trong câu nhé!</span>`;
+      return;
+    }
+
+    if (chosenSentence === targetSentence) {
+      playSuccessSound();
+      sqCorrectCount++;
+      stars += 10;
+      document.getElementById('star-count').innerText = stars;
+      feedback.innerHTML = `<span style="color: #15803D;">✓ Quá xuất sắc! Cấu trúc câu hoàn toàn chính xác! (+10 ⭐)</span>`;
+      
+      // Phát âm câu hoàn chỉnh để bé vừa nhìn vừa nghe
+      speakSingleSentence(targetSentence);
+
+      setTimeout(() => {
+        sqCurrentIndex++;
+        loadSentenceScrambleQuestion();
+      }, 1600);
+    } else {
+      playWrongSound();
+      feedback.innerHTML = `<span style="color: #DC2626;">✗ Trật tự từ chưa chuẩn rồi. Bé thử đổi lại vị trí các từ nhé!</span>`;
+    }
+  }
+
+  // --- TAB 6: GRAMMAR (DROPDOWN BẢN GỐC) ---
   function renderGrammarTab(text) {
     const container = document.getElementById('grammar-container');
     const paras = text.split('\n').filter(p => p.trim() !== '');
@@ -1867,7 +1993,7 @@ Child: Yes, I must!`;
       }
 
       const tokens = dialogBody.match(/[A-Za-z]+(-[A-Za-z]+)?/g) || [];
-      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "got", "oh", "do", "you"];
+      const stopWords = ["the", "a", "an", "and", "to", "my", "your", "we", "i", "it", "this", "got", "oh", "do", "you", "who", "has"];
       const candidates = tokens.filter(w => !stopWords.includes(w.toLowerCase()) && w.length >= 2);
 
       if (candidates.length === 0) return `<p>${para}</p>`;
