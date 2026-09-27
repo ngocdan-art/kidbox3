@@ -61,7 +61,7 @@
     .audio-settings { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap; font-size: 13px; color: #475569; }
     .audio-settings select { padding: 5px 8px; border-radius: 6px; border: 1px solid #CBD5E1; background: white; }
 
-    /* Tabs */
+    /* Tabs 1 hàng ngang */
     .tab-nav { 
       display: flex; 
       gap: 4px; 
@@ -205,7 +205,7 @@
     .word-tile.bank.used { visibility: hidden; pointer-events: none; }
     .word-tile.slot { background: white; color: #0F172A; border: 2px solid #3B82F6; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-    /* Hộp câu hỏi dẫn dắt (Context Hint) trong phần Xếp Câu */
+    /* Hộp câu hỏi dẫn dắt tương ứng */
     .prompt-context-box {
       background: #EFF6FF;
       border: 1.5px solid #BFDBFE;
@@ -335,7 +335,7 @@
       </div>
     </div>
 
-    <!-- Khung nhập riêng biệt cho Từ Vựng -->
+    <!-- Khung nhập riêng cho Từ Vựng -->
     <div id="vocab-import-box" class="vocab-import-box">
       <div style="font-size: 13.5px; font-weight: bold; color: #334155; margin-bottom: 6px;">
         📝 Dán danh sách từ vựng dạng: <code>tiếng anh: tiếng việt</code> (mỗi từ một dòng)
@@ -426,7 +426,7 @@
   </div>
 </div>
 
-<!-- Modal 2: Thử Thách Sắp Xếp Câu Ngữ Pháp (Hiển thị rõ câu hỏi tương ứng) -->
+<!-- Modal 2: Thử Thách Sắp Xếp Câu Ngữ Pháp (Ghép đúng cặp câu hỏi - đáp) -->
 <div id="sentence-scramble-modal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-header">
@@ -435,11 +435,11 @@
     </div>
 
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-      <span id="sq-progress" style="font-weight: bold; color: #64748B; font-size: 14px;">Câu: 1/5</span>
+      <span id="sq-progress" style="font-weight: bold; color: #64748B; font-size: 14px;">Cặp câu: 1/6</span>
       <span id="sq-score" style="font-weight: bold; color: #047857; font-size: 14px;">Đúng: 0 ⭐</span>
     </div>
 
-    <!-- Hộp hiển thị Câu Hỏi / Câu Dẫn Dắt Tương Ứng -->
+    <!-- Hộp hiển thị Câu Hỏi Dẫn Dắt -->
     <div class="prompt-context-box" id="sq-context-box">
       <div class="prompt-speaker" id="sq-context-speaker">Parent hỏi:</div>
       <div class="prompt-text" id="sq-context-text">"Where's the park?"</div>
@@ -485,13 +485,12 @@
   let vqIsFlipped = false;
   let vqMode = 'speak';
 
-  // Vocab Scramble State
   let scrambleOriginalWord = '';
   let scrambleBankChars = [];
   let scrambleChosenChars = [];
 
-  // Sentence Scramble State (Ngữ pháp xếp câu hỏi - đáp)
-  let sqItems = [];
+  // Sentence Scramble State (Cặp Hỏi - Đáp chuẩn xác)
+  let sqPairs = [];
   let sqCurrentIndex = 0;
   let sqCorrectCount = 0;
   let sqBankWords = [];
@@ -570,12 +569,21 @@
 
   const defaultText = `Parent: Where's the park?
 Child: It's opposite the swimming pool!
+
 Parent: Where's the library?
 Child: It's between the bank and the bus station!
+
 Parent: Where do you go to see a film?
 Child: I go to the cinema to see a film!
+
 Parent: Where do we go to buy food?
-Child: We go to the supermarket or the market!`;
+Child: We go to the supermarket or the market!
+
+Parent: What must you do in the library?
+Child: I must be quiet in the library!
+
+Parent: Must you make your bed every morning?
+Child: Yes, I must!`;
 
   const defaultVocabList = [
     { word: "bank", meaning: "ngân hàng" },
@@ -1835,33 +1843,38 @@ Child: We go to the supermarket or the market!`;
     }
   }
 
-  // --- MODAL 2: THỬ THÁCH SẮP XẾP CÂU (HIỂN THỊ CÂU HỎI TƯƠNG ỨNG) ---
+  // --- MODAL 2: THỬ THÁCH SẮP XẾP CÂU (GHÉP CẶP HỎI - ĐÁP CHUẨN XÁC) ---
   function openSentenceScrambleModal() {
-    let questionAnswerPairs = [];
+    let pairs = [];
 
-    // Tìm các cặp (Câu trước -> Câu sau cần xếp)
-    for (let i = 0; i < currentDialogueList.length; i++) {
-      const current = currentDialogueList[i];
-      const words = current.body.trim().split(/\s+/);
-      
-      if (words.length >= 3) {
-        let prevPrompt = null;
-        if (i > 0) {
-          prevPrompt = currentDialogueList[i - 1];
-        }
+    // Duyệt chính xác theo từng cặp: [Câu hỏi -> Câu trả lời liền kề]
+    for (let i = 0; i < currentDialogueList.length - 1; i += 2) {
+      const qItem = currentDialogueList[i];
+      const aItem = currentDialogueList[i + 1];
 
-        questionAnswerPairs.push({
-          targetItem: current,
-          prevPrompt: prevPrompt
+      if (qItem && aItem) {
+        pairs.push({
+          question: qItem,
+          answer: aItem
         });
       }
     }
 
-    if (questionAnswerPairs.length === 0) {
-      return alert("Bài đọc cần ít nhất 1 câu hoàn chỉnh để bắt đầu thử thách xếp câu!");
+    // Trường hợp bài đọc lẻ câu hoặc chỉ có câu đơn lẻ
+    if (pairs.length === 0 && currentDialogueList.length > 0) {
+      currentDialogueList.forEach(item => {
+        pairs.push({
+          question: { speaker: "Bài đọc", body: "Hãy sắp xếp câu hoàn chỉnh:" },
+          answer: item
+        });
+      });
     }
 
-    sqItems = [...questionAnswerPairs].sort(() => Math.random() - 0.5);
+    if (pairs.length === 0) {
+      return alert("Bài đọc cần ít nhất 1 cặp câu hội thoại để bắt đầu thử thách xếp câu!");
+    }
+
+    sqPairs = [...pairs].sort(() => Math.random() - 0.5);
     sqCurrentIndex = 0;
     sqCorrectCount = 0;
 
@@ -1877,37 +1890,30 @@ Child: We go to the supermarket or the market!`;
   }
 
   function loadSentenceScrambleQuestion() {
-    if (sqCurrentIndex >= sqItems.length) {
+    if (sqCurrentIndex >= sqPairs.length) {
       playSuccessSound();
       stars += sqCorrectCount * 10;
       document.getElementById('star-count').innerText = stars;
-      alert(`🎉 Xuất sắc! Bé đã xếp đúng ${sqCorrectCount}/${sqItems.length} câu ngữ pháp! (+${sqCorrectCount * 10} ⭐)`);
+      alert(`🎉 Xuất sắc! Bé đã xếp đúng toàn bộ ${sqCorrectCount}/${sqPairs.length} cặp câu ngữ pháp! (+${sqCorrectCount * 10} ⭐)`);
       closeSentenceScrambleModal();
       return;
     }
 
-    const item = sqItems[sqCurrentIndex];
-    const current = item.targetItem;
-    const prev = item.prevPrompt;
+    const currentPair = sqPairs[sqCurrentIndex];
+    const qItem = currentPair.question;
+    const aItem = currentPair.answer;
 
-    document.getElementById('sq-progress').innerText = `Câu: ${sqCurrentIndex + 1}/${sqItems.length}`;
+    document.getElementById('sq-progress').innerText = `Cặp câu: ${sqCurrentIndex + 1}/${sqPairs.length}`;
     document.getElementById('sq-score').innerText = `Đúng: ${sqCorrectCount} ⭐`;
     document.getElementById('sq-feedback').innerText = '';
 
-    // Hiển thị câu hỏi / câu dẫn dắt tương ứng phía trên
-    const contextBox = document.getElementById('sq-context-box');
-    if (prev) {
-      contextBox.style.display = 'block';
-      document.getElementById('sq-context-speaker').innerHTML = `💬 <b>${prev.speaker ? prev.speaker : 'Bạn đối thoại'}</b> nói:`;
-      document.getElementById('sq-context-text').innerText = `"${prev.body}"`;
-      document.getElementById('sq-task-title').innerHTML = `👉 Bé hãy sắp xếp câu trả lời của [ <b>${current.speaker ? current.speaker : 'mình'}</b> ]:`;
-    } else {
-      contextBox.style.display = 'none';
-      document.getElementById('sq-task-title').innerHTML = `👉 Bé hãy sắp xếp các từ để hoàn thành câu của [ <b>${current.speaker ? current.speaker : 'nhân vật'}</b> ]:`;
-    }
+    // Luôn hiển thị đúng câu hỏi ở trên
+    document.getElementById('sq-context-speaker').innerHTML = `💬 <b>${qItem.speaker || 'Câu hỏi'}</b>:`;
+    document.getElementById('sq-context-text').innerText = `"${qItem.body}"`;
+    document.getElementById('sq-task-title').innerHTML = `👉 Bé hãy sắp xếp câu trả lời của [ <b>${aItem.speaker || 'mình'}</b> ]:`;
 
-    // Tách các từ trong câu cần xếp và xáo trộn
-    const rawWords = current.body.trim().split(/\s+/);
+    // Tách các từ trong câu trả lời cần xếp
+    const rawWords = aItem.body.trim().split(/\s+/);
     let shuffled = [...rawWords];
     let tries = 0;
     while (tries < 10 && shuffled.join(' ') === rawWords.join(' ')) {
@@ -1978,13 +1984,12 @@ Child: We go to the supermarket or the market!`;
   }
 
   function checkSentenceScrambleAnswer() {
-    const item = sqItems[sqCurrentIndex];
-    if (!item) return;
+    const currentPair = sqPairs[sqCurrentIndex];
+    if (!currentPair) return;
 
-    const current = item.targetItem;
-    const feedback = document.getElementById('sq-feedback');
+    const targetSentence = currentPair.answer.body.trim();
     const chosenSentence = sqChosenWords.map(w => w.word).join(' ').trim();
-    const targetSentence = current.body.trim();
+    const feedback = document.getElementById('sq-feedback');
 
     if (sqChosenWords.length < sqBankWords.length) {
       feedback.innerHTML = `<span style="color: #D97706;">Bé hãy ghép đủ tất cả các từ trong câu nhé!</span>`;
@@ -1998,7 +2003,7 @@ Child: We go to the supermarket or the market!`;
       document.getElementById('star-count').innerText = stars;
       feedback.innerHTML = `<span style="color: #15803D;">✓ Quá xuất sắc! Cấu trúc câu trả lời hoàn toàn chính xác! (+10 ⭐)</span>`;
       
-      // Phát âm câu hoàn chỉnh sau khi bé xếp đúng
+      // Đọc to câu trả lời chuẩn sau khi bé xếp đúng
       speakSingleSentence(targetSentence);
 
       setTimeout(() => {
@@ -2011,7 +2016,7 @@ Child: We go to the supermarket or the market!`;
     }
   }
 
-  // --- TAB 6: GRAMMAR DROPDOWN ---
+  // --- TAB 6: GRAMMAR (DROPDOWN) ---
   function renderGrammarTab(text) {
     const container = document.getElementById('grammar-container');
     const paras = text.split('\n').filter(p => p.trim() !== '');
